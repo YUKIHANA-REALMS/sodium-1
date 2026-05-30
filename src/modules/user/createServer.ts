@@ -220,22 +220,24 @@ const userCreateServerModule: Module = {
               continue;
             }
 
-            let serverEnv: any[];
-            try {
-              const rawVars = JSON.parse(server.Variables);
-              serverEnv = rawVars.map((v: any) => ({
-                env: String(v.env_variable ?? v.env ?? ''),
-                value: v.value ?? v.default_value ?? '',
-              }));
-              let serverPort = assignedPort;
+              let serverEnv: any[];
               try {
-                const parsedPorts = JSON.parse(server.Ports);
-                const primary = parsedPorts.find((p: any) => p.primary);
-                if (primary?.Port) {
-                  serverPort = parseInt(String(primary.Port).split(':')[0]);
+                const rawVars = JSON.parse(server.Variables);
+                serverEnv = rawVars.map((v: any) => ({
+                  env: String(v.env_variable ?? v.env ?? ''),
+                  value: v.value ?? v.default_value ?? '',
+                }));
+                let serverPort = 0;
+                try {
+                  const parsedPorts = JSON.parse(server.Ports);
+                  const primary = parsedPorts.find((p: any) => p.primary);
+                  if (primary?.Port) {
+                    serverPort = parseInt(String(primary.Port).split(':')[0]);
+                  }
+                } catch {
+                  // fallback – leave as 0, daemon will pick a port
                 }
-              } catch { /* keep fallback */ }
-              serverEnv.push({ env: 'SERVER_PORT', value: serverPort });
+                serverEnv.push({ env: 'SERVER_PORT', value: serverPort });
               serverEnv.push({ env: 'SERVER_MEMORY', value: String(server.Memory) });
               serverEnv.push({ env: 'SERVER_CPU',    value: String(server.Cpu) });
             } catch (err) {
@@ -252,7 +254,7 @@ const userCreateServerModule: Module = {
             const daemonUrl = `${daemonSchemeSync()}://${server.node.address}:${server.node.port}`;
 
             if (!server.image?.scripts) {
-              await prisma.server.update({ where: { id: server.id }, data: { Queued: false } });
+              await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
               continue;
             }
 
@@ -306,7 +308,7 @@ const userCreateServerModule: Module = {
                   },
                 );
               }
-              await prisma.server.update({ where: { id: server.id }, data: { Queued: false } });
+              await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
             } catch (err) {
               logger.error(`Error sending install request for server ${server.id}:`, err);
             }

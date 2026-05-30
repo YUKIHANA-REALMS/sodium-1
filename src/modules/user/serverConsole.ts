@@ -42,6 +42,12 @@ async function proxyConsole(
       return;
     }
 
+    if (server.Installing || server.Queued) {
+      ws.send('\x1b[33;1mThis server is still installing. Please wait for the installation to complete.\x1b[0m');
+      ws.close();
+      return;
+    }
+
     const { node } = server;
     const socket = new WebSocket(daemonPath(node.address, node.port, serverId));
 
@@ -52,7 +58,7 @@ async function proxyConsole(
     socket.onmessage = (msg) => ws.send(msg.data);
 
     socket.onerror = () => {
-      ws.send('\x1b[31;1mThis instance is unavailable!\x1b[0m');
+      ws.send('\x1b[31;1mThis instance is unavailable! The daemon may be offline or the container has not been started yet.\x1b[0m');
     };
 
     socket.onclose = () => ws.close();
