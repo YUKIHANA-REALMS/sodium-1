@@ -1060,12 +1060,13 @@ ENVEOF
 phase_panel_deps() {
     cd /var/www/panel || die "Panel directory missing"
 
+    "$PNPM" approve-builds --all || true
+
     NODE_ENV=development "$PNPM" install --no-frozen-lockfile \
         --store-dir "$PNPM_STORE" \
         --network-concurrency 16 \
         || die "Panel dependency install failed"
 
-    "$PNPM" approve-builds --all || true
     "$PNPM" add chalk form-data --store-dir "$PNPM_STORE" \
         || die "chalk/form-data install failed"
 }
