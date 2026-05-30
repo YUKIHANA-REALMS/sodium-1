@@ -1,7 +1,7 @@
 /**
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
  *      Sodium - Open Source Project by IndiCloud
- *      Repository: https://github.com/indicloud/panel
+ *      Repository: https://github.com/YUKIHANA-REALMS/sodium-1
  *
  *     © 2025 IndiCloud. Licensed under the MIT License
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳

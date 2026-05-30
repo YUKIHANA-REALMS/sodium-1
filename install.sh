@@ -19,7 +19,7 @@ set -uo pipefail
 
 readonly VERSION="2.0.0"
 readonly LOG="/tmp/sodium-panel.log"
-readonly PANEL_REPO="https://github.com/sodium/panel.git"
+readonly PANEL_REPO="https://github.com/YUKIHANA-REALMS/sodium-1.git"
 
 PNPM_REGISTRY="https://registry.npmjs.org"
 PNPM="pnpm"
@@ -1001,7 +1001,7 @@ phase_panel_clone() {
     if [[ -d /var/www/panel ]]; then
         echo "Panel already exists — overwriting files, keeping .env and db"
         local tmpdir; tmpdir=$(mktemp -d /tmp/sp-panel-XXXXXX)
-        git clone --depth 1 "${PANEL_REPO}" "$tmpdir" || die "Failed to clone panel"
+        GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=echo git -c credential.helper= clone --depth 1 "${PANEL_REPO}" "$tmpdir" || die "Failed to clone panel"
 
         if command -v rsync &>/dev/null; then
             rsync -a --exclude='.env' --exclude='dev.db' --exclude='node_modules' \
@@ -1019,7 +1019,7 @@ phase_panel_clone() {
         fi
     else
         cd /var/www || die "Cannot access /var/www"
-        git clone --depth 1 "${PANEL_REPO}" panel || die "Failed to clone panel"
+        GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=echo git -c credential.helper= clone --depth 1 "${PANEL_REPO}" panel || die "Failed to clone panel"
     fi
 
     id www-data &>/dev/null && chown -R www-data:www-data /var/www/panel
@@ -1117,7 +1117,7 @@ phase_daemon_clone() {
         local tmpdir; tmpdir=$(mktemp -d /tmp/sp-daemon-XXXXXX)
 
         # Try to clone daemon from repo, fall back to local daemon/ directory
-        if git clone --depth 1 "${PANEL_REPO}" "$tmpdir/sodium" 2>/dev/null; then
+        if GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=echo git -c credential.helper= clone --depth 1 "${PANEL_REPO}" "$tmpdir/sodium" 2>/dev/null; then
             if [[ -d "$tmpdir/sodium/daemon" ]]; then
                 if command -v rsync &>/dev/null; then
                     rsync -a --exclude='.env' --exclude='node_modules' "$tmpdir/sodium/daemon/" /etc/sodium-daemon/
@@ -1139,7 +1139,7 @@ phase_daemon_clone() {
             echo "Daemon source not found in repo. Attempting clone..."
             mkdir -p /etc/sodium-daemon
             cd /etc || die "Cannot access /etc"
-            git clone --depth 1 "${PANEL_REPO}" sodium-tmp || die "Failed to clone repo"
+            GIT_TERMINAL_PROMPT=0 GIT_ASKPASS=echo git -c credential.helper= clone --depth 1 "${PANEL_REPO}" sodium-tmp || die "Failed to clone repo"
             if [[ -d sodium-tmp/daemon ]]; then
                 cp -r sodium-tmp/daemon/* /etc/sodium-daemon/
             fi

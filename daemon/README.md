@@ -7,13 +7,13 @@ The daemon component of Sodium Panel. It runs on game server nodes and communica
 The daemon is installed automatically when you run the main installer:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/sodium/panel/main/install.sh)
+bash <(curl -s https://raw.githubusercontent.com/YUKIHANA-REALMS/sodium-1/main/install.sh)
 ```
 
 Or for daemon-only installation:
 
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/sodium/panel/main/install.sh) --daemon-only
+bash <(curl -s https://raw.githubusercontent.com/YUKIHANA-REALMS/sodium-1/main/install.sh) --daemon-only
 ```
 
 ## Structure

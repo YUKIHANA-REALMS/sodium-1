@@ -7,7 +7,7 @@
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-[![License](https://img.shields.io/github/license/sodium/panel)](https://github.com/sodium/panel/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/YUKIHANA-REALMS/sodium-1)](https://github.com/YUKIHANA-REALMS/sodium-1/blob/main/LICENSE)
 [![Discord](https://img.shields.io/discord/1302020587316707420)](https://discord.gg/ujXyxwwMHc)
 
 ---
@@ -44,7 +44,7 @@ For full documentation, visit **[sodium.github.io/home/docs/quickstart](https://
 
 ```bash
 sudo su
-bash <(curl -s https://raw.githubusercontent.com/sodium/panel/refs/heads/main/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/YUKIHANA-REALMS/sodium-1/refs/heads/main/install.sh)
 ```
 
 Manage with systemd:
@@ -60,7 +60,7 @@ journalctl -u sodium-panel -f
 
 ```bash
 cd /var/www/
-git clone https://github.com/sodium/panel.git
+git clone https://github.com/YUKIHANA-REALMS/sodium-1.git
 cd panel
 
 chown -R www-data:www-data /var/www/panel
@@ -127,9 +127,9 @@ See [`storage/addons/README.md`](storage/addons/README.md) for structure and API
 
 <a href="https://www.star-history.com/?repos=sodium%2Fpanel&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=sodium/panel&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=sodium/panel&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=sodium/panel&type=date&legend=top-left" />
+<source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=YUKIHANA-REALMS/sodium-1&type=date&theme=dark&legend=top-left" />
+<source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=YUKIHANA-REALMS/sodium-1&type=date&legend=top-left" />
+<img alt="Star History Chart" src="https://api.star-history.com/image?repos=YUKIHANA-REALMS/sodium-1&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -151,7 +151,7 @@ Run `pnpm run lint` before submitting. Follow TypeScript best practices and upda
 - Website: [sodium.github.io/home](https://sodium.github.io/home/)
 - Docs: [sodium.github.io/home/docs/quickstart](https://sodium.github.io/home/docs/quickstart/)
 - Discord: [discord.gg/ujXyxwwMHc](https://discord.gg/ujXyxwwMHc)
-- GitHub: [github.com/sodium/panel](https://github.com/sodium/panel)
+- GitHub: [github.com/YUKIHANA-REALMS/sodium-1](https://github.com/YUKIHANA-REALMS/sodium-1)
 
 ## License
 

@@ -8,7 +8,7 @@ This is a reference for everything in the Sodium panel. It covers the admin side
 
 ### Quick install
 ```bash
-bash <(curl -s https://raw.githubusercontent.com/sodium/panel/refs/heads/main/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/YUKIHANA-REALMS/sodium-1/refs/heads/main/installer.sh)
 ```
 
 The installer is interactive. It walks you through database setup, admin account creation, and optional addon selection.
@@ -16,7 +16,7 @@ The installer is interactive. It walks you through database setup, admin account
 ### Manual install
 ```bash
 cd /var/www/
-git clone https://github.com/SodiumLabs/panel.git
+git clone https://github.com/YUKIHANA-REALMS/sodium-1.git
 cd panel
 sudo chown -R www-data:www-data /var/www/panel
 sudo chmod -R 755 /var/www/panel

@@ -591,7 +591,7 @@
     statusEl.className   = inst ? 's-badge s-badge-installed' : badgeClass(addon.status);
     document.getElementById('mMeta').textContent = 'by ' + (addon.author || 'Unknown') + (addon.version ? ' · v' + addon.version : '');
     document.getElementById('mDesc').textContent = addon.longDescription || addon.description || 'No description available.';
-    document.getElementById('mGhBtn').href       = addon.github || ('https://github.com/Sodiumlabs/addons/tree/main/' + addon.id);
+    document.getElementById('mGhBtn').href       = addon.github || ('https://github.com/YUKIHANA-REALMS/sodium-1/tree/main/' + addon.id);
 
     const featEl = document.getElementById('mFeatures');
     featEl.innerHTML = '';
@@ -695,7 +695,7 @@
     c.innerHTML = '';
     const s = document.createElement('script');
     s.src = 'https://giscus.app/client.js';
-    s.setAttribute('data-repo', 'Sodiumlabs/addons');
+    s.setAttribute('data-repo', 'YUKIHANA-REALMS/sodium-1');
     s.setAttribute('data-repo-id', '');
     s.setAttribute('data-category', 'General');
     s.setAttribute('data-category-id', '');

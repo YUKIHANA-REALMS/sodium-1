@@ -20,7 +20,7 @@ registerPermission('sodium.admin.addons.reload');
 registerPermission('sodium.admin.addons.store');
 registerPermission('sodium.admin.addons.install');
 
-const ADDONS_REPO_OWNER = 'indicloud';
+const ADDONS_REPO_OWNER = 'YUKIHANA-REALMS';
 const ADDONS_REPO_NAME  = 'addons';
 const ADDONS_RAW_BASE   = `https://raw.githubusercontent.com/${ADDONS_REPO_OWNER}/${ADDONS_REPO_NAME}/main`;
 const GITHUB_API_BASE   = `https://api.github.com/repos/${ADDONS_REPO_OWNER}/${ADDONS_REPO_NAME}`;
