@@ -1429,8 +1429,18 @@ const serverPort = parseInt(config.port || '3002', 10);
 const server = http.createServer(app);
 
 // ── WebSocket server ──────────────────────────────────────────────────────
+//
+// Create the WebSocket server with noServer:true so it does NOT attach its
+// own upgrade listener yet – we do that manually below to make sure all
+// WebSocket upgrade requests bypass Express's auth middleware.
 
-const wss = new WebSocketServer({ server });
+const wss = new WebSocketServer({ noServer: true });
+
+server.on('upgrade', (request, socket, head) => {
+  wss.handleUpgrade(request, socket, head, (ws) => {
+    wss.emit('connection', ws, request);
+  });
+});
 
 function wsAuth(ws: WsSocket, req: IncomingMessage): boolean {
   // Extract Basic auth from the Upgrade request
