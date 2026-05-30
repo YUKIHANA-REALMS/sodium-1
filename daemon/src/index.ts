@@ -19,28 +19,36 @@ function loadEnv() {
 
 loadEnv();
 
-function verifyAuth(req: express.Request): boolean {
+function verifyHmac(req: express.Request): boolean {
   const key = config.key;
   if (!key) return false;
 
   const timestamp = req.headers['x-sodium-timestamp'] as string;
   const signature = req.headers['x-sodium-signature'] as string;
+  if (!timestamp || !signature) return false;
 
-  if (timestamp && signature) {
-    const body = typeof req.body === 'object' ? JSON.stringify(req.body) : (req.body || '');
-    const expected = crypto
-      .createHmac('sha256', key)
-      .update(`${timestamp}:${req.method}:${req.path}:${body}`)
-      .digest('hex');
-    if (signature.length !== expected.length) return false;
-    return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
-  }
+  const body = typeof req.body === 'object' ? JSON.stringify(req.body) : (req.body || '');
+  const expected = crypto
+    .createHmac('sha256', key)
+    .update(`${timestamp}:${req.method}:${req.path}:${body}`)
+    .digest('hex');
+  if (signature.length !== expected.length) return false;
+  return crypto.timingSafeEqual(Buffer.from(signature), Buffer.from(expected));
+}
+
+function verifyBasic(req: express.Request): boolean {
+  const key = config.key;
+  if (!key) return false;
 
   const auth = req.headers.authorization || '';
   if (!auth.startsWith('Basic ')) return false;
   const creds = Buffer.from(auth.slice(6), 'base64').toString();
   const [, password] = creds.split(':');
   return password === key;
+}
+
+function verifyAuth(req: express.Request): boolean {
+  return verifyHmac(req) || verifyBasic(req);
 }
 
 app.use((req, res, next) => {
