@@ -8,7 +8,7 @@ type ErrorPageInfo = {
 };
 
 const DEFAULT_SETTINGS = {
-  title: 'Airlink',
+  title: 'Sodium Panel',
   favicon: '/favicon.ico',
   logo: '/assets/logo.png',
   lightTheme: 'default',

@@ -1,9 +1,9 @@
 /**
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
- *      AirLink - Open Source Project by AirlinkLabs
- *      Repository: https://github.com/airlinklabs/panel
+ *      Sodium - Open Source Project by IndiCloud
+ *      Repository: https://github.com/indicloud/panel
  *
- *     © 2025 AirlinkLabs. Licensed under the MIT License
+ *     © 2025 IndiCloud. Licensed under the MIT License
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
  */
 
@@ -58,7 +58,7 @@ export async function collectPlayerStats(): Promise<void> {
               port: primaryPort
             },
             auth: {
-              username: 'Airlink',
+              username: 'Sodium',
               password: server.node.key,
             },
             timeout: 5000

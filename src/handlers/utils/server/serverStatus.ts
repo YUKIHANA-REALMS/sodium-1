@@ -23,7 +23,7 @@ export async function getServerStatus(serverInfo: ServerInfo): Promise<ServerSta
     const response = await axios({
       method: 'GET',
       url: `${daemonSchemeSync()}://${serverInfo.nodeAddress}:${serverInfo.nodePort}/container/status`,
-      auth: { username: 'Airlink', password: serverInfo.nodeKey },
+      auth: { username: 'Sodium', password: serverInfo.nodeKey },
       params: { id: serverInfo.serverUUID },
       timeout: 3000,
     });
@@ -61,7 +61,7 @@ export async function getServerStatus(serverInfo: ServerInfo): Promise<ServerSta
         errorStatus.error = 'Connection refused — daemon may be offline';
       } else if (error.code === 'ETIMEDOUT' || error.code === 'ECONNABORTED') {
         errorStatus.error = 'Connection timed out';
-        } else if (error.code === 'ENOTFOUND') {
+      } else if (error.code === 'ENOTFOUND') {
         errorStatus.error = 'Host not found — check node address';
       } else if (error.response) {
         errorStatus.error = `Daemon responded with ${error.response.status}`;

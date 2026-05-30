@@ -3,7 +3,7 @@ declare global {
       interface Global {
         uiComponentStore: any;
         name: string;
-        airlinkVersion: string;
+        sodiumVersion: string;
         adminMenuItems: any[];
         regularMenuItems: any[];
       }

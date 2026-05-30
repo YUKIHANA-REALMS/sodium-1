@@ -8,7 +8,7 @@ const uiComponentsModule: Module = {
     description: 'This file registers UI components for the admin panel.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 

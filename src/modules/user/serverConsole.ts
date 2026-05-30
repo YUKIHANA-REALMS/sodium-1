@@ -72,7 +72,7 @@ const wsServerConsoleModule: Module = {
     description: 'This file is for the server console functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 

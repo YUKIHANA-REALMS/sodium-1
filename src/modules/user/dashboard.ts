@@ -18,7 +18,7 @@ const dashboardModule: Module = {
     description: 'This file is for dashboard functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -68,7 +68,7 @@ const dashboardModule: Module = {
                 method: 'GET',
                 url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}`,
                 auth: {
-                  username: 'Airlink',
+                  username: 'Sodium',
                   password: server.node.key,
                 },
                 timeout: 2000,
@@ -117,7 +117,7 @@ const dashboardModule: Module = {
         const serversWithStats = await Promise.all(
           servers.map(async (server) => {
             try {
-                    if (
+              if (
                 nodeStatuses[server.node.id] &&
                 !nodeStatuses[server.node.id].online
               ) {
@@ -135,7 +135,7 @@ const dashboardModule: Module = {
                 method: 'GET',
                 url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/container/status`,
                 auth: {
-                  username: 'Airlink',
+                  username: 'Sodium',
                   password: server.node.key,
                 },
                 params: { id: server.UUID },
@@ -153,7 +153,7 @@ const dashboardModule: Module = {
                     method: 'GET',
                     url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/container/stats`,
                     auth: {
-                      username: 'Airlink',
+                      username: 'Sodium',
                       password: server.node.key,
                     },
                     params: { id: server.UUID },
@@ -171,7 +171,7 @@ const dashboardModule: Module = {
                       : `${memUsageMB.toFixed(0)}MB`;
                   }
                 } catch (statsError) {
-                            if (axios.isAxiosError(statsError)) {
+                  if (axios.isAxiosError(statsError)) {
                     if (
                       statsError.code !== 'ECONNREFUSED' &&
                       statsError.code !== 'ETIMEDOUT' &&

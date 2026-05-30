@@ -1,6 +1,6 @@
 # Addon Migrations
 
-AirLink Panel allows addons to define database migrations in their `package.json` file. These migrations are automatically applied when the addon is enabled, allowing addons to create and modify database tables without requiring manual SQL execution.
+Sodium Panel allows addons to define database migrations in their `package.json` file. These migrations are automatically applied when the addon is enabled, allowing addons to create and modify database tables without requiring manual SQL execution.
 
 ## Table of Contents
 
@@ -165,7 +165,7 @@ Here's a complete example of an addon that uses migrations to create a table for
   "name": "User Notes",
   "version": "1.0.0",
   "description": "Add notes to users",
-  "author": "AirLink Labs",
+  "author": "Sodium",
   "main": "index.ts",
   "router": "/user-notes",
   "migrations": [

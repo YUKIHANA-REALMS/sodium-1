@@ -9,19 +9,19 @@ async function saveSettings(data: Record<string, any>) {
     where: { id: 1 },
     update: data,
     create: {
-      title: 'Airlink',
+      title: 'Sodium',
       ...data,
     },
   });
 }
 
-const airlinkCloudModule: Module = {
+const indicloudModule: Module = {
   info: {
-    name: 'Airlink Cloud Module',
-    description: 'Airlink Cloud integration settings.',
+    name: 'IndiCloud Module',
+    description: 'IndiCloud integration settings.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirlinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -29,7 +29,7 @@ const airlinkCloudModule: Module = {
     const router = Router();
 
     router.get(
-      '/admin/airlink-cloud',
+      '/admin/indicloud',
       isAuthenticated(true),
       async (req: Request, res: Response) => {
         try {
@@ -39,30 +39,30 @@ const airlinkCloudModule: Module = {
 
           const settings = await prisma.settings.findUnique({ where: { id: 1 } });
 
-          res.render('admin/airlink-cloud/settings', { user, req, settings });
+          res.render('admin/indicloud/settings', { user, req, settings });
         } catch (error) {
-          logger.error('Error loading Airlink Cloud settings page:', error);
+          logger.error('Error loading IndiCloud settings page:', error);
           res.redirect('/admin/overview');
         }
       },
     );
 
     router.post(
-      '/admin/airlink-cloud',
+      '/admin/indicloud',
       isAuthenticated(true),
       async (req: Request, res: Response) => {
         try {
-          const { airlinkCloudApiKey, airlinkCloudBackupEnabled } = req.body;
+          const { indicloudApiKey, indicloudBackupEnabled } = req.body;
 
           const data: Record<string, any> = {
-            airlinkCloudApiKey: airlinkCloudApiKey || null,
-            airlinkCloudBackupEnabled: airlinkCloudBackupEnabled === true || airlinkCloudBackupEnabled === 'true',
+            indicloudApiKey: indicloudApiKey || null,
+            indicloudBackupEnabled: indicloudBackupEnabled === true || indicloudBackupEnabled === 'true',
           };
 
           await saveSettings(data);
           res.json({ success: true });
         } catch (error) {
-          logger.error('Error saving Airlink Cloud settings:', error);
+          logger.error('Error saving IndiCloud settings:', error);
           res.status(500).json({ success: false, error: 'Failed to save settings.' });
         }
       },
@@ -72,4 +72,4 @@ const airlinkCloudModule: Module = {
   },
 };
 
-export default airlinkCloudModule;
+export default indicloudModule;

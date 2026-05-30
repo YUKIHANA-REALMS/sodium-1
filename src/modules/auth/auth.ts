@@ -10,7 +10,7 @@ const authModule: Module = {
     description: 'This file is for authentication and authorization of users.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 

@@ -5,7 +5,7 @@ import { isAuthenticated } from '../../handlers/utils/auth/authUtil';
 import logger from '../../handlers/logger';
 import axios from 'axios';
 import { queueer } from '../../handlers/queueer';
-import { getParamAsString, getParamAsNumber } from "../../utils/typeHelpers";
+import { getParamAsString, getParamAsNumber } from '../../utils/typeHelpers';
 import { daemonSchemeSync } from '../../handlers/utils/core/daemonRequest';
 
 
@@ -15,7 +15,7 @@ const adminModule: Module = {
     description: 'This file is for admin functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -189,7 +189,7 @@ const adminModule: Module = {
                 method: 'POST',
                 url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/container/stop`,
                 auth: {
-                  username: 'Airlink',
+                  username: 'Sodium',
                   password: server.node.key,
                 },
                 headers: {
@@ -543,7 +543,7 @@ const adminModule: Module = {
                         env,
                       },
                       {
-                        auth: { username: 'Airlink', password: server.node.key },
+                        auth: { username: 'Sodium', password: server.node.key },
                         headers: { 'Content-Type': 'application/json' },
                         timeout: 600000,
                       },
@@ -573,7 +573,7 @@ const adminModule: Module = {
                         })),
                       },
                       {
-                        auth: { username: 'Airlink', password: server.node.key },
+                        auth: { username: 'Sodium', password: server.node.key },
                         headers: { 'Content-Type': 'application/json' },
                       },
                     );
@@ -584,7 +584,7 @@ const adminModule: Module = {
                         `${daemonUrl}/container/installer`,
                         { id: server.UUID, env, script: native.CMD, container: native.container, entrypoint: 'bash' },
                         {
-                          auth: { username: 'Airlink', password: server.node.key },
+                          auth: { username: 'Sodium', password: server.node.key },
                           headers: { 'Content-Type': 'application/json' },
                           timeout: 600000,
                         },
@@ -655,7 +655,7 @@ const adminModule: Module = {
                   `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/container`,
                   {
                     auth: {
-                      username: 'Airlink',
+                      username: 'Sodium',
                       password: server.node.key,
                     },
                     headers: {
@@ -674,7 +674,7 @@ const adminModule: Module = {
 
                 logger.info(`Successfully deleted container ${server.UUID} on daemon`);
               } catch (error: unknown) {
-                logger.error(`Error deleting container on daemon:`, error);
+                logger.error('Error deleting container on daemon:', error);
 
                 const daemonError = error as any;
                 const isNotFoundError =

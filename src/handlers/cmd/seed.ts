@@ -14,7 +14,7 @@ export function* validateSeedData(data: any[]): Generator<boolean> {
 }
 
 const IMAGES_URL =
-  'https://raw.githubusercontent.com/airlinklabs/images/refs/heads/main/index.json';
+  'https://raw.githubusercontent.com/indicloud/images/refs/heads/main/index.json';
 const FIELD_MAPPING: Record<string, string> = {
   docker_images: 'dockerImages',
 };

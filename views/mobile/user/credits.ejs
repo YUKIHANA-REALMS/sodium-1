@@ -35,7 +35,7 @@
         <h1 class="text-base font-medium text-neutral-800 dark:text-white">Credits</h1>
         <span class="text-xs font-mono text-neutral-400 bg-white/80 dark:bg-white/5 border border-neutral-200 dark:border-white/5 px-2 py-0.5 rounded-full">v<%= version %></span>
       </div>
-      <p class="text-sm text-neutral-500">The people who build and maintain Airlink.</p>
+      <p class="text-sm text-neutral-500">The people who build and maintain Sodium Panel.</p>
     </div>
 
     <!-- Leads -->
@@ -86,10 +86,10 @@
       <h2 class="text-xs font-semibold uppercase tracking-widest text-neutral-400 dark:text-neutral-500 mb-3">Links</h2>
       <div class="space-y-2">
         <% const links = [
-          { href: 'https://github.com/airlinklabs/panel', label: 'GitHub', sub: 'Source code', icon: 'github' },
+          { href: 'https://github.com/Sodiumlabs/panel', label: 'GitHub', sub: 'Source code', icon: 'github' },
           { href: 'https://discord.gg/ujXyxwwMHc', label: 'Discord', sub: 'Community & support', icon: 'discord' },
-          { href: 'https://airlinklabs.github.io/home/', label: 'Website', sub: 'airlinklabs.github.io', icon: 'web' },
-          { href: 'https://airlinklabs.github.io/home/docs/quickstart/', label: 'Docs', sub: 'Documentation', icon: 'docs' },
+          { href: 'https://Sodiumlabs.github.io/home/', label: 'Website', sub: 'Sodiumlabs.github.io', icon: 'web' },
+          { href: 'https://Sodiumlabs.github.io/home/docs/quickstart/', label: 'Docs', sub: 'Documentation', icon: 'docs' },
         ]; %>
         <% links.forEach(function(link) { %>
         <a href="<%= link.href %>" target="_blank" rel="noopener"
@@ -121,7 +121,7 @@
       <div class="rounded-xl bg-white/80 dark:bg-white/5 border border-neutral-200 dark:border-white/5 shadow-sm dark:shadow-none px-4 py-4">
         <p class="text-sm font-medium text-neutral-800 dark:text-white mb-1.5">MIT License</p>
         <p class="text-xs text-neutral-500 leading-relaxed">Free and open source. Use, modify, and distribute provided the copyright notice is included.</p>
-        <a href="https://github.com/airlinklabs/panel/blob/main/LICENSE" target="_blank" rel="noopener" class="inline-block mt-2 text-xs text-neutral-400 underline">View full license</a>
+        <a href="https://github.com/Sodiumlabs/panel/blob/main/LICENSE" target="_blank" rel="noopener" class="inline-block mt-2 text-xs text-neutral-400 underline">View full license</a>
       </div>
     </section>
 
@@ -251,7 +251,7 @@
     })();
   })();
 
-  var CACHE_KEY    = 'airlink_contributors_v2';
+  var CACHE_KEY    = 'Sodium_contributors_v2';
   var CACHE_TTL_MS = 6 * 60 * 60 * 1000;
   var LEADS        = ['thavanish', 'privt00', 'achul123'];
 
@@ -292,7 +292,7 @@
     showCacheLabel(cached.ts);
     renderContributors(cached.data);
   } else {
-    fetch('https://api.github.com/repos/airlinklabs/panel/contributors?per_page=100')
+    fetch('https://api.github.com/repos/Sodiumlabs/panel/contributors?per_page=100')
       .then(function (r) { return r.ok ? r.json() : Promise.reject(); })
       .then(function (data) {
         try { localStorage.setItem(CACHE_KEY, JSON.stringify({ ts: Date.now(), data: data })); } catch (_) {}

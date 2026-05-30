@@ -1,6 +1,6 @@
-# AirLink Panel Addon System
+# Sodium Panel Addon System
 
-This document provides a comprehensive guide to the AirLink Panel addon system, including how to create, configure, and manage addons.
+This document provides a comprehensive guide to the Sodium Panel addon system, including how to create, configure, and manage addons.
 
 ## Table of Contents
 
@@ -21,7 +21,7 @@ This document provides a comprehensive guide to the AirLink Panel addon system, 
 
 ## Introduction
 
-Addons are a powerful way to extend the functionality of AirLink Panel. They can add new features, modify existing ones, and integrate with external services. Addons are loaded dynamically when the panel starts, and can be enabled or disabled through the admin interface.
+Addons are a powerful way to extend the functionality of Sodium Panel. They can add new features, modify existing ones, and integrate with external services. Addons are loaded dynamically when the panel starts, and can be enabled or disabled through the admin interface.
 
 ## Addon Structure
 
@@ -455,7 +455,7 @@ Here's a complete example of a simple addon that adds a custom page and a databa
   "name": "User Notes",
   "version": "1.0.0",
   "description": "Add notes to users",
-  "author": "AirLink Labs",
+  "author": "Sodium",
   "main": "index.ts",
   "router": "/user-notes",
   "migrations": [

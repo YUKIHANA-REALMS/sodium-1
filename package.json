@@ -1,12 +1,12 @@
 {
-  "name": "Airlink",
+  "name": "Sodium",
   "version": "2.0.0-rc1",
-  "description": "Airlink is a simple-to-use game server management panel",
+  "description": "Sodium is a simple-to-use game server management panel powered by IndiCloud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/AirlinkLabs/panel"
+    "url": "https://github.com/sodium/panel"
   },
-  "author": "AirlinkLabs",
+  "author": "Sodium",
   "license": "MIT",
   "scripts": {
     "start": "npx prisma db push --skip-generate && node dist/app.js",

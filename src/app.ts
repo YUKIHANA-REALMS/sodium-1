@@ -1,14 +1,14 @@
 /**
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
- *      AirLink - Open Source Project by AirlinkLabs
- *      Repository: https://github.com/airlinklabs/panel
+ *      Sodium - Open Source Project by IndiCloud
+ *      Repository: https://github.com/indicloud/panel
  *
- *     © 2025 AirlinkLabs. Licensed under the MIT License
+ *     © 2025 IndiCloud. Licensed under the MIT License
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
  */
 
 import express, { Request, Response, NextFunction } from 'express';
-import { PrismaClient } from "@prisma/client";
+import { PrismaClient } from '@prisma/client';
 import path from 'path';
 import session from 'express-session';
 import { loadEnv } from './handlers/envLoader';
@@ -60,8 +60,8 @@ process.setMaxListeners(20);
 
 const app = express();
 const port = process.env.PORT || 3000;
-const name = process.env.NAME || 'AirLink';
-const airlinkVersion = config.meta.version;
+const name = process.env.NAME || 'Sodium Panel';
+const sodiumVersion = config.meta.version;
 
 // Trust proxy when the panel is behind a reverse proxy (Nginx, Caddy, etc).
 // Reads from DB at startup — affects req.ip used by rate limiting and IP banning.
@@ -225,71 +225,71 @@ app.use((req: Request, res: Response, next: NextFunction) => {
 
     contentSecurityPolicy: isProduction
       ? {
-          directives: {
-            // Fallback for any directive not listed explicitly.
-            defaultSrc: ["'self'"],
+        directives: {
+          // Fallback for any directive not listed explicitly.
+          defaultSrc: ['\'self\''],
 
-            // Scripts:
-            //   'nonce-{nonce}' — allows only <script nonce="…"> blocks that
-            //                     carry the per-request nonce. Blocks all other
-            //                     inline scripts and eval().
-            //   'strict-dynamic' — lets nonce-carrying scripts load further
-            //                     scripts dynamically (needed by Monaco loader).
-            //                     When strict-dynamic is present, host allowlists
-            //                     are ignored by supporting browsers, so the CDN
-            //                     list here is a fallback for older browsers only.
-            scriptSrc: [
-              "'self'",
-              `'nonce-${nonce}'`,
-              "'strict-dynamic'",
-              ...cdnScripts,
-            ],
+          // Scripts:
+          //   'nonce-{nonce}' — allows only <script nonce="…"> blocks that
+          //                     carry the per-request nonce. Blocks all other
+          //                     inline scripts and eval().
+          //   'strict-dynamic' — lets nonce-carrying scripts load further
+          //                     scripts dynamically (needed by Monaco loader).
+          //                     When strict-dynamic is present, host allowlists
+          //                     are ignored by supporting browsers, so the CDN
+          //                     list here is a fallback for older browsers only.
+          scriptSrc: [
+            '\'self\'',
+            `'nonce-${nonce}'`,
+            '\'strict-dynamic\'',
+            ...cdnScripts,
+          ],
 
-            // Inline event handlers (onclick, onchange, etc.) cannot carry nonces.
-            // 'unsafe-inline' here is scoped only to attributes, not to <script>
-            // blocks (which are governed by scriptSrc above).
-            // This is the minimum needed to avoid rewriting 126+ EJS event handlers.
-            scriptSrcAttr: ["'unsafe-inline'"],
+          // Inline event handlers (onclick, onchange, etc.) cannot carry nonces.
+          // 'unsafe-inline' here is scoped only to attributes, not to <script>
+          // blocks (which are governed by scriptSrc above).
+          // This is the minimum needed to avoid rewriting 126+ EJS event handlers.
+          scriptSrcAttr: ['\'unsafe-inline\''],
 
-            // Styles — allow inline (Tailwind utility classes are inline by nature)
-            // plus the exact external stylesheet CDNs used.
-            styleSrc: ["'self'", "'unsafe-inline'", ...cdnStyles, ...cdnFonts],
+          // Styles — allow inline (Tailwind utility classes are inline by nature)
+          // plus the exact external stylesheet CDNs used.
+          styleSrc: ['\'self\'', '\'unsafe-inline\'', ...cdnStyles, ...cdnFonts],
 
-            // Fonts — exact CDN origins only, plus data URIs for embedded icons.
-            fontSrc: ["'self'", 'data:', ...cdnFonts],
+          // Fonts — exact CDN origins only, plus data URIs for embedded icons.
+          fontSrc: ['\'self\'', 'data:', ...cdnFonts],
 
-            // Images — self + data URIs (avatars/favicons) + https for remote images.
-            // http: is intentionally excluded; image URLs served by the daemon
-            // should be proxied through the panel rather than loaded directly.
-            imgSrc: ["'self'", 'data:', 'blob:', 'https:'],
+          // Images — self + data URIs (avatars/favicons) + https for remote images.
+          // http: is intentionally excluded; image URLs served by the daemon
+          // should be proxied through the panel rather than loaded directly.
+          imgSrc: ['\'self\'', 'data:', 'blob:', 'https:'],
 
-            // WebSocket connections for the server console + same-origin API calls.
-            connectSrc: [
-              "'self'",
-              ...(isHttps ? ['wss:'] : ['ws:', 'wss:']),
-            ],
+          // WebSocket connections for the server console + same-origin API calls.
+          connectSrc: [
+            '\'self\'',
+            ...(isHttps ? ['wss:'] : ['ws:', 'wss:']),
+          ],
 
-            // Prevent the panel from being embedded in any frame anywhere.
-            // Supersedes X-Frame-Options for modern browsers.
-            frameAncestors: ["'none'"],
+          // Prevent the panel from being embedded in any frame anywhere.
+          // Supersedes X-Frame-Options for modern browsers.
+          frameAncestors: ['\'none\''],
 
-            // Prevent any plugins (Flash, PDF, etc.) from being embedded.
-            objectSrc: ["'none'"],
+          // Prevent any plugins (Flash, PDF, etc.) from being embedded.
+          objectSrc: ['\'none\''],
 
-            // Lock down <base> tags — prevents base-tag hijacking attacks.
-            baseUri: ["'self'"],
+          // Lock down <base> tags — prevents base-tag hijacking attacks.
+          baseUri: ['\'self\''],
 
-            // All form submissions must go to same origin.
-            formAction: ["'self'"],
+          // All form submissions must go to same origin.
+          formAction: ['\'self\''],
 
-            // Only upgrade to HTTPS when we are actually serving HTTPS.
-            // Without this guard, helmet's default adds upgrade-insecure-requests
-            // which rewrites every asset URL to https://, breaking HTTP installs.
-            ...(isHttps
-              ? { upgradeInsecureRequests: [] }
-              : { upgradeInsecureRequests: null }),
-          },
-        }
+          // Only upgrade to HTTPS when we are actually serving HTTPS.
+          // Without this guard, helmet's default adds upgrade-insecure-requests
+          // which rewrites every asset URL to https://, breaking HTTP installs.
+          ...(isHttps
+            ? { upgradeInsecureRequests: [] }
+            : { upgradeInsecureRequests: null }),
+        },
+      }
       : false,
   })(req, res, next);
 });
@@ -427,7 +427,7 @@ interface SidebarItem {
 interface GlobalWithCustomProperties extends NodeJS.Global {
   uiComponentStore: typeof import('./handlers/uiComponentHandler').uiComponentStore;
   appName: string;
-  airlinkVersion: string;
+  sodiumVersion: string;
   adminMenuItems: SidebarItem[];
   regularMenuItems: SidebarItem[];
 }
@@ -436,10 +436,10 @@ declare const global: GlobalWithCustomProperties;
 
 app.use((_req, res, next) => {
   res.locals.name = name;
-  res.locals.airlinkVersion = airlinkVersion;
+  res.locals.sodiumVersion = sodiumVersion;
   global.uiComponentStore = uiComponentStore;
   global.appName = name;
-  global.airlinkVersion = airlinkVersion;
+  global.sodiumVersion = sodiumVersion;
 
   res.locals.adminMenuItems = uiComponentStore.getSidebarItems(undefined, true);
   res.locals.regularMenuItems = uiComponentStore.getSidebarItems(
@@ -518,7 +518,7 @@ app.use(errorPageHandler);
     installDaemonRequestInterceptor();
     // Initialize default UI components
     initializeDefaultUIComponents();
-    await loadModules(app, airlinkVersion, Number(port));
+    await loadModules(app, sodiumVersion, Number(port));
     await loadAddons(app);
 
     // Setup SPA routes

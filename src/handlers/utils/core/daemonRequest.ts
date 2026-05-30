@@ -80,11 +80,11 @@ function serializeRequestBody(data: unknown): string {
 }
 
 // Install once at panel startup. After this, every axios request that carries
-// { auth: { username: 'Airlink', password: key } } automatically gets
-// X-Airlink-Timestamp and X-Airlink-Signature headers added.
+// { auth: { username: 'Sodium', password: key } } automatically gets
+// X-Sodium-Timestamp and X-Sodium-Signature headers added.
 export function installDaemonRequestInterceptor(): void {
   axios.interceptors.request.use((config: InternalAxiosRequestConfig) => {
-    if (!config.auth || (config.auth as any).username !== 'Airlink') {
+    if (!config.auth || (config.auth as any).username !== 'Sodium') {
       return config;
     }
 
@@ -106,8 +106,8 @@ export function installDaemonRequestInterceptor(): void {
     const timestamp = Math.floor(Date.now() / 1000);
     const signature = hmacSign(key, method, urlPath, body, timestamp);
 
-    config.headers.set('X-Airlink-Timestamp', String(timestamp));
-    config.headers.set('X-Airlink-Signature', signature);
+    config.headers.set('X-Sodium-Timestamp', String(timestamp));
+    config.headers.set('X-Sodium-Signature', signature);
 
     return config;
   });

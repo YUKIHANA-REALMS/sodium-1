@@ -34,7 +34,7 @@ export async function checkForUpdates(): Promise<{
     if (isDev) {
       // Check latest commit on main branch
       const response = await axios.get(
-        'https://api.github.com/repos/airlinklabs/panel/commits/main',
+        'https://api.github.com/repos/indicloud/panel/commits/main',
       );
       const latestCommit: GithubCommit = response.data;
       const currentCommit = execSync('git rev-parse HEAD').toString().trim();
@@ -48,7 +48,7 @@ export async function checkForUpdates(): Promise<{
     } else {
       // Check latest release
       const response = await axios.get(
-        'https://api.github.com/repos/airlinklabs/panel/releases/latest',
+        'https://api.github.com/repos/indicloud/panel/releases/latest',
       );
       const latestRelease: GithubRelease = response.data;
       const latestVersion = latestRelease.tag_name.replace('v', '');
@@ -82,7 +82,7 @@ export async function performUpdate(): Promise<boolean> {
     } else {
       // Checkout latest release
       const response = await axios.get(
-        'https://api.github.com/repos/airlinklabs/panel/releases/latest',
+        'https://api.github.com/repos/indicloud/panel/releases/latest',
       );
       const latestRelease: GithubRelease = response.data;
       execSync(`git fetch && git checkout ${latestRelease.tag_name}`, {

@@ -8,7 +8,7 @@ import { registerPermission } from '../../handlers/permisions';
 import { daemonSchemeSync } from '../../handlers/utils/core/daemonRequest';
 
 
-registerPermission('airlink.admin.analytics.view');
+registerPermission('sodium.admin.analytics.view');
 
 interface ErrorMessage {
   message?: string;
@@ -20,7 +20,7 @@ const analyticsModule: Module = {
     description: 'This file provides analytics dashboard for the admin panel.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -29,7 +29,7 @@ const analyticsModule: Module = {
 
     router.get(
       '/admin/analytics',
-      isAuthenticated(true, 'airlink.admin.analytics.view'),
+      isAuthenticated(true, 'sodium.admin.analytics.view'),
       async (req: Request, res: Response) => {
         try {
           const userId = req.session?.user?.id;
@@ -49,7 +49,7 @@ const analyticsModule: Module = {
     // Single endpoint that returns everything the analytics page needs
     router.get(
       '/api/admin/analytics/summary',
-      isAuthenticated(true, 'airlink.admin.analytics.view'),
+      isAuthenticated(true, 'sodium.admin.analytics.view'),
       async (_req: Request, res: Response) => {
         try {
           const [servers, users, nodes, images, loginHistory, playerHistory] = await Promise.all([
@@ -105,7 +105,7 @@ const analyticsModule: Module = {
                 const r = await axios({
                   method: 'get',
                   url: `${daemonSchemeSync()}://${node.address}:${node.port}`,
-                  auth: { username: 'Airlink', password: node.key },
+                  auth: { username: 'Sodium', password: node.key },
                   timeout: TIMEOUT,
                 });
                 return {

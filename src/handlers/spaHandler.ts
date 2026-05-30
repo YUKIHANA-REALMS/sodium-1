@@ -82,9 +82,9 @@ export class SPAHandler {
 
   private extractTitle(data: any): string {
     if (data.title) {
-      return `${data.settings?.title || 'AirLink'} - ${data.title}`;
+      return `${data.settings?.title || 'Sodium Panel'} - ${data.title}`;
     }
-    return data.settings?.title || 'AirLink';
+    return data.settings?.title || 'Sodium Panel';
   }
 
   private extractScripts(content: string): string[] {

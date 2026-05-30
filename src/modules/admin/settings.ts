@@ -106,7 +106,7 @@ async function saveSettings(data: Record<string, any>) {
     where:  { id: 1 },
     update: data,
     create: {
-      title:    'AirLink',
+      title:    'Sodium',
       logo:     '../assets/logo.png',
       favicon:  '../assets/favicon.ico',
       lightTheme: 'default',
@@ -139,7 +139,7 @@ const adminModule: Module = {
     description:   'Settings management for the admin panel.',
     version:       '1.0.0',
     moduleVersion: '1.0.0',
-    author:        'AirlinkLab',
+    author:        'IndiCloud',
     license:       'MIT',
   },
 
@@ -429,7 +429,7 @@ const adminModule: Module = {
       async (_req: Request, res: Response) => {
         try {
           await saveSettings({
-            title:             'Airlink',
+            title:             'Sodium',
             logo:              '../assets/logo.png',
             favicon:           '../assets/favicon.ico',
             lightTheme:        'default',

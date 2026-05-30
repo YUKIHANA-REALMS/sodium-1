@@ -1,9 +1,9 @@
 /**
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
- *      AirLink - Open Source Project by AirlinkLabs
- *      Repository: https://github.com/airlinklabs/panel
+ *      Sodium - Open Source Project by IndiCloud
+ *      Repository: https://github.com/indicloud/panel
  *
- *     © 2025 AirlinkLabs. Licensed under the MIT License
+ *     © 2025 IndiCloud. Licensed under the MIT License
  * ╳━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━╳
  */
 

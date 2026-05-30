@@ -47,7 +47,7 @@ const adminModule: Module = {
     description: 'This file is for admin functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -251,7 +251,7 @@ const adminModule: Module = {
             return;
           }
 
-          let dockerImagesRaw: Record<string, string> = {};
+          const dockerImagesRaw: Record<string, string> = {};
           try {
             const parsed = JSON.parse(image.dockerImages || '[]');
             if (Array.isArray(parsed)) {
@@ -265,7 +265,7 @@ const adminModule: Module = {
           try { meta = JSON.parse(image.meta || '{}'); } catch { /* keep empty */ }
 
           const exported = {
-            _comment: 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY AIRLINK',
+            _comment: 'DO NOT EDIT: FILE GENERATED AUTOMATICALLY BY SODIUM',
             meta: { version: 'PTDL_v2', ...meta },
             name: image.name,
             description: image.description,

@@ -4,7 +4,7 @@ import prisma from '../../db';
 import { isAuthenticated } from '../../handlers/utils/auth/authUtil';
 import logger from '../../handlers/logger';
 import { registerPermission } from '../../handlers/permisions';
-import { getParamAsString, getParamAsNumber } from "../../utils/typeHelpers";
+import { getParamAsString, getParamAsNumber } from '../../utils/typeHelpers';
 import crypto from 'crypto';
 
 function sha256(value: string): string {
@@ -20,11 +20,11 @@ async function shouldHashKeys(): Promise<boolean> {
   }
 }
 
-registerPermission('airlink.admin.apikeys.view');
-registerPermission('airlink.admin.apikeys.create');
-registerPermission('airlink.admin.apikeys.delete');
-registerPermission('airlink.admin.apikeys.edit');
-registerPermission('airlink.admin.api.docs.view');
+registerPermission('sodium.admin.apikeys.view');
+registerPermission('sodium.admin.apikeys.create');
+registerPermission('sodium.admin.apikeys.delete');
+registerPermission('sodium.admin.apikeys.edit');
+registerPermission('sodium.admin.api.docs.view');
 
 function generateApiKey(length: number): string {
   const characters =
@@ -43,7 +43,7 @@ const coreModule: Module = {
     description: 'This module handles API key management.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -52,7 +52,7 @@ const coreModule: Module = {
 
     router.get(
       '/admin/api/docs',
-      isAuthenticated(true, 'airlink.admin.api.docs.view'),
+      isAuthenticated(true, 'sodium.admin.api.docs.view'),
       async (req: Request, res: Response) => {
         try {
           const settings = await prisma.settings.findFirst();
@@ -76,7 +76,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/users',
                   description: 'Get a list of all users',
-                  permission: 'airlink.api.users.read',
+                  permission: 'sodium.api.users.read',
                   responseExample: `{
   "data": [
     {
@@ -94,7 +94,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/users/:id',
                   description: 'Get details for a specific user',
-                  permission: 'airlink.api.users.read',
+                  permission: 'sodium.api.users.read',
                   responseExample: `{
   "data": {
     "id": 1,
@@ -115,7 +115,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/servers',
                   description: 'Get a list of all servers',
-                  permission: 'airlink.api.servers.read',
+                  permission: 'sodium.api.servers.read',
                   responseExample: `{
   "data": [
     {
@@ -141,7 +141,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/servers/:id',
                   description: 'Get details for a specific server',
-                  permission: 'airlink.api.servers.read',
+                  permission: 'sodium.api.servers.read',
                   responseExample: `{
   "data": {
     "id": 1,
@@ -170,7 +170,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/nodes',
                   description: 'Get a list of all nodes',
-                  permission: 'airlink.api.nodes.read',
+                  permission: 'sodium.api.nodes.read',
                   responseExample: `{
   "data": [
     {
@@ -193,7 +193,7 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/nodes/:id',
                   description: 'Get details for a specific node',
-                  permission: 'airlink.api.nodes.read',
+                  permission: 'sodium.api.nodes.read',
                   responseExample: `{
   "data": {
     "id": 1,
@@ -226,12 +226,12 @@ const coreModule: Module = {
                   method: 'GET',
                   path: '/api/v1/settings',
                   description: 'Get panel settings',
-                  permission: 'airlink.api.settings.read',
+                  permission: 'sodium.api.settings.read',
                   responseExample: `{
   "data": {
     "id": 1,
-    "title": "Airlink",
-    "description": "AirLink is a free and open source project by AirlinkLabs",
+    "title": "Sodium",
+    "description": "Sodium is a free and open source project by IndiCloud",
     "logo": "../assets/logo.png",
     "favicon": "../assets/favicon.ico",
     "theme": "default",
@@ -245,7 +245,7 @@ const coreModule: Module = {
                   method: 'PATCH',
                   path: '/api/v1/settings',
                   description: 'Update panel settings',
-                  permission: 'airlink.api.settings.update',
+                  permission: 'sodium.api.settings.update',
                   requestExample: `{
   "title": "My Panel",
   "description": "My custom panel",
@@ -291,7 +291,7 @@ const coreModule: Module = {
 
     router.get(
       '/admin/apikeys',
-      isAuthenticated(true, 'airlink.admin.apikeys.view'),
+      isAuthenticated(true, 'sodium.admin.apikeys.view'),
       async (req: Request, res: Response) => {
         try {
           const apiKeys = await prisma.apiKey.findMany({
@@ -309,20 +309,20 @@ const coreModule: Module = {
           const settings = await prisma.settings.findFirst();
 
           const allPermissions = [
-            { name: 'Servers - Read', value: 'airlink.api.servers.read' },
-            { name: 'Servers - Create', value: 'airlink.api.servers.create' },
-            { name: 'Servers - Update', value: 'airlink.api.servers.update' },
-            { name: 'Servers - Delete', value: 'airlink.api.servers.delete' },
-            { name: 'Users - Read', value: 'airlink.api.users.read' },
-            { name: 'Users - Create', value: 'airlink.api.users.create' },
-            { name: 'Users - Update', value: 'airlink.api.users.update' },
-            { name: 'Users - Delete', value: 'airlink.api.users.delete' },
-            { name: 'Nodes - Read', value: 'airlink.api.nodes.read' },
-            { name: 'Nodes - Create', value: 'airlink.api.nodes.create' },
-            { name: 'Nodes - Update', value: 'airlink.api.nodes.update' },
-            { name: 'Nodes - Delete', value: 'airlink.api.nodes.delete' },
-            { name: 'Settings - Read', value: 'airlink.api.settings.read' },
-            { name: 'Settings - Update', value: 'airlink.api.settings.update' },
+            { name: 'Servers - Read', value: 'sodium.api.servers.read' },
+            { name: 'Servers - Create', value: 'sodium.api.servers.create' },
+            { name: 'Servers - Update', value: 'sodium.api.servers.update' },
+            { name: 'Servers - Delete', value: 'sodium.api.servers.delete' },
+            { name: 'Users - Read', value: 'sodium.api.users.read' },
+            { name: 'Users - Create', value: 'sodium.api.users.create' },
+            { name: 'Users - Update', value: 'sodium.api.users.update' },
+            { name: 'Users - Delete', value: 'sodium.api.users.delete' },
+            { name: 'Nodes - Read', value: 'sodium.api.nodes.read' },
+            { name: 'Nodes - Create', value: 'sodium.api.nodes.create' },
+            { name: 'Nodes - Update', value: 'sodium.api.nodes.update' },
+            { name: 'Nodes - Delete', value: 'sodium.api.nodes.delete' },
+            { name: 'Settings - Read', value: 'sodium.api.settings.read' },
+            { name: 'Settings - Update', value: 'sodium.api.settings.update' },
           ];
 
           res.render('admin/apikeys/apikeys', {
@@ -344,7 +344,7 @@ const coreModule: Module = {
 
     router.post(
       '/admin/apikeys/create',
-      isAuthenticated(true, 'airlink.admin.apikeys.create'),
+      isAuthenticated(true, 'sodium.admin.apikeys.create'),
       async (req: Request, res: Response) => {
         try {
           const { name, description, permissions } = req.body;
@@ -388,7 +388,7 @@ const coreModule: Module = {
 
     router.post(
       '/admin/apikeys/delete/:id',
-      isAuthenticated(true, 'airlink.admin.apikeys.delete'),
+      isAuthenticated(true, 'sodium.admin.apikeys.delete'),
       async (req: Request, res: Response) => {
         try {
           const id = getParamAsNumber(req.params.id);
@@ -407,7 +407,7 @@ const coreModule: Module = {
 
     router.post(
       '/admin/apikeys/toggle/:id',
-      isAuthenticated(true, 'airlink.admin.apikeys.edit'),
+      isAuthenticated(true, 'sodium.admin.apikeys.edit'),
       async (req: Request, res: Response) => {
         try {
           const id = getParamAsNumber(req.params.id);
@@ -439,7 +439,7 @@ const coreModule: Module = {
 
     router.post(
       '/admin/apikeys/edit/:id',
-      isAuthenticated(true, 'airlink.admin.apikeys.edit'),
+      isAuthenticated(true, 'sodium.admin.apikeys.edit'),
       async (req: Request, res: Response) => {
         try {
           const id = getParamAsNumber(req.params.id);

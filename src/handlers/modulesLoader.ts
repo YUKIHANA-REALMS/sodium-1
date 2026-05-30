@@ -10,7 +10,7 @@ const isDebugMode = process.env.DEBUG === 'true';
 
 export const loadModules = async (
   app: express.Express,
-  airlinkVersion: string,
+  sodiumVersion: string,
   serverPort?: number,
 ) => {
   const modulesDir = path.join(__dirname, '../modules');
@@ -80,8 +80,8 @@ export const loadModules = async (
       continue;
     }
 
-    if (mod.info.version !== airlinkVersion) {
-      logger.warn(`Skipping incompatible module: ${mod.info.name} (requires v${mod.info.version}, found v${airlinkVersion})`);
+    if (mod.info.version !== sodiumVersion) {
+      logger.warn(`Skipping incompatible module: ${mod.info.name} (requires v${mod.info.version}, found v${sodiumVersion})`);
       skipped++;
       continue;
     }

@@ -99,9 +99,9 @@
   });
 
   // Public API for addon views that don't set dontfuckinganimateme.
-  // Call window.airlinkAnimate(el) on any element to run the standard
+  // Call window.sodiumAnimate(el) on any element to run the standard
   // entrance animation: fade in + slight upward slide.
-  window.airlinkAnimate = function (el, options) {
+  window.sodiumAnimate = function (el, options) {
     if (!el || el.nodeType !== 1) return;
     var duration = (options && options.duration) || 260;
     var delay    = (options && options.delay)    || 0;
@@ -116,12 +116,12 @@
 
   // Animate all direct children of a container element.
   // Each child staggers by 40ms so they cascade rather than all pop at once.
-  window.airlinkAnimateChildren = function (container, options) {
+  window.sodiumAnimateChildren = function (container, options) {
     if (!container || container.nodeType !== 1) return;
     var baseDelay = (options && options.baseDelay) || 0;
     var stagger   = (options && options.stagger)   || 40;
     Array.from(container.children).forEach(function (child, i) {
-      window.airlinkAnimate(child, {
+      window.sodiumAnimate(child, {
         duration: (options && options.duration) || 260,
         delay: baseDelay + i * stagger,
       });

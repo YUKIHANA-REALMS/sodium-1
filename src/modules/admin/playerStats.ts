@@ -8,7 +8,7 @@ import { registerPermission } from '../../handlers/permisions';
 import { collectPlayerStats } from '../../handlers/playerStatsCollector';
 import { daemonSchemeSync } from '../../handlers/utils/core/daemonRequest';
 
-registerPermission('airlink.admin.playerstats.view');
+registerPermission('sodium.admin.playerstats.view');
 
 interface ErrorMessage {
   message?: string;
@@ -20,7 +20,7 @@ const adminModule: Module = {
     description: 'This file provides player statistics for the admin panel.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -29,7 +29,7 @@ const adminModule: Module = {
 
     router.get(
       '/admin/playerstats',
-      isAuthenticated(true, 'airlink.admin.playerstats.view'),
+      isAuthenticated(true, 'sodium.admin.playerstats.view'),
       async (req: Request, res: Response) => {
         const errorMessage: ErrorMessage = {};
         const settings = await prisma.settings.findUnique({ where: { id: 1 } });
@@ -68,7 +68,7 @@ const adminModule: Module = {
 
     router.get(
       '/api/admin/playerstats',
-      isAuthenticated(true, 'airlink.admin.playerstats.view'),
+      isAuthenticated(true, 'sodium.admin.playerstats.view'),
       async (req: Request, res: Response) => {
         try {
           const servers = await prisma.server.findMany({
@@ -81,7 +81,7 @@ const adminModule: Module = {
           const playerData = await Promise.all(
             servers.map(async (server) => {
               try {
-                      const ports = JSON.parse(server.Ports || '[]');
+                const ports = JSON.parse(server.Ports || '[]');
                 const primaryPort = ports.find((p: any) => p.primary)?.Port;
 
                 if (!primaryPort) {
@@ -95,7 +95,7 @@ const adminModule: Module = {
                   };
                 }
 
-                      const response = await axios({
+                const response = await axios({
                   method: 'GET',
                   url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/minecraft/players`,
                   params: {
@@ -104,7 +104,7 @@ const adminModule: Module = {
                     port: primaryPort
                   },
                   auth: {
-                    username: 'Airlink',
+                    username: 'Sodium',
                     password: server.node.key,
                   },
                   timeout: 5000
@@ -158,7 +158,7 @@ const adminModule: Module = {
 
     router.post(
       '/api/admin/playerstats/collect',
-      isAuthenticated(true, 'airlink.admin.playerstats.view'),
+      isAuthenticated(true, 'sodium.admin.playerstats.view'),
       async (req: Request, res: Response) => {
         try {
           await collectPlayerStats();

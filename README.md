@@ -1,22 +1,22 @@
 > [!NOTE]
-> Airlink 2.0.0-rc1 is a release candidate. Core features are stable. Production use is at your own risk until the final release.
+> Sodium 2.0.0-rc1 is a release candidate. Core features are stable. Production use is at your own risk until the final release.
 
-# Airlink Panel
+# Sodium Panel
 
 **Open-source game server management — v2.0.0-rc1**
 
 ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
 ![Prisma](https://img.shields.io/badge/Prisma-3982CE?style=for-the-badge&logo=Prisma&logoColor=white)
-[![License](https://img.shields.io/github/license/AirlinkLabs/panel)](https://github.com/AirlinkLabs/panel/blob/main/LICENSE)
+[![License](https://img.shields.io/github/license/sodium/panel)](https://github.com/sodium/panel/blob/main/LICENSE)
 [![Discord](https://img.shields.io/discord/1302020587316707420)](https://discord.gg/ujXyxwwMHc)
 
 ---
 
 ## Overview
 
-Airlink Panel is an open-source platform for deploying, monitoring, and managing game servers. It provides a full-featured web UI for both admins and users, a daemon-based node system for running containers, and an addon API for extending functionality without modifying core code.
+Sodium Panel is an open-source platform for deploying, monitoring, and managing game servers. It provides a full-featured web UI for both admins and users, a daemon-based node system for running containers, and an addon API for extending functionality without modifying core code.
 
-For full documentation, visit **[airlinklabs.github.io/home/docs/quickstart](https://airlinklabs.github.io/home/docs/quickstart/)**.
+For full documentation, visit **[sodium.github.io/home/docs/quickstart](https://sodium.github.io/home/docs/quickstart/)**.
 
 ---
 
@@ -44,23 +44,23 @@ For full documentation, visit **[airlinklabs.github.io/home/docs/quickstart](htt
 
 ```bash
 sudo su
-bash <(curl -s https://raw.githubusercontent.com/airlinklabs/panel/refs/heads/main/installer.sh)
+bash <(curl -s https://raw.githubusercontent.com/sodium/panel/refs/heads/main/installer.sh)
 ```
 
 Manage with systemd:
 
 ```bash
-systemctl start airlink-panel
-systemctl stop airlink-panel
-systemctl restart airlink-panel
-journalctl -u airlink-panel -f
+systemctl start sodium-panel
+systemctl stop sodium-panel
+systemctl restart sodium-panel
+journalctl -u sodium-panel -f
 ```
 
 ### Option 2 — Manual
 
 ```bash
 cd /var/www/
-git clone https://github.com/AirlinkLabs/panel.git
+git clone https://github.com/sodium/panel.git
 cd panel
 
 chown -R www-data:www-data /var/www/panel
@@ -89,7 +89,7 @@ pnpm run start
 
 ```bash
 npm install -g pm2
-pm2 start "pnpm run start" --name airlink-panel
+pm2 start "pnpm run start" --name sodium-panel
 pm2 save
 pm2 startup
 ```
@@ -100,7 +100,7 @@ Copy `example.env` to `.env` and fill in the required values:
 
 | Variable | Required | Description |
 |----------|----------|-------------|
-| `NAME` | No | Panel display name (default: Airlink) |
+| `NAME` | No | Panel display name (default: Sodium) |
 | `NODE_ENV` | Yes | Set to `production` for live deployments |
 | `URL` | Yes | Full URL the panel is served from, e.g. `http://192.168.1.10:3000` |
 | `PORT` | Yes | Port to listen on |
@@ -125,11 +125,11 @@ See [`storage/addons/README.md`](storage/addons/README.md) for structure and API
 
 ## Star History
 
-<a href="https://www.star-history.com/?repos=airlinklabs%2Fpanel&type=date&legend=top-left">
+<a href="https://www.star-history.com/?repos=sodium%2Fpanel&type=date&legend=top-left">
  <picture>
-   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=airlinklabs/panel&type=date&theme=dark&legend=top-left" />
-   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=airlinklabs/panel&type=date&legend=top-left" />
-   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=airlinklabs/panel&type=date&legend=top-left" />
+   <source media="(prefers-color-scheme: dark)" srcset="https://api.star-history.com/image?repos=sodium/panel&type=date&theme=dark&legend=top-left" />
+   <source media="(prefers-color-scheme: light)" srcset="https://api.star-history.com/image?repos=sodium/panel&type=date&legend=top-left" />
+   <img alt="Star History Chart" src="https://api.star-history.com/image?repos=sodium/panel&type=date&legend=top-left" />
  </picture>
 </a>
 
@@ -148,10 +148,10 @@ Run `pnpm run lint` before submitting. Follow TypeScript best practices and upda
 
 ## Links
 
-- Website: [airlinklabs.github.io/home](https://airlinklabs.github.io/home/)
-- Docs: [airlinklabs.github.io/home/docs/quickstart](https://airlinklabs.github.io/home/docs/quickstart/)
+- Website: [sodium.github.io/home](https://sodium.github.io/home/)
+- Docs: [sodium.github.io/home/docs/quickstart](https://sodium.github.io/home/docs/quickstart/)
 - Discord: [discord.gg/ujXyxwwMHc](https://discord.gg/ujXyxwwMHc)
-- GitHub: [github.com/airlinklabs/panel](https://github.com/airlinklabs/panel)
+- GitHub: [github.com/sodium/panel](https://github.com/sodium/panel)
 
 ## License
 

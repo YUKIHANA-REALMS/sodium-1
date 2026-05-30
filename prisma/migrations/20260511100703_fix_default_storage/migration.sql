@@ -1,13 +1,13 @@
 -- AlterTable
-ALTER TABLE "Backup" ADD COLUMN "airlinkCloudId" TEXT;
+ALTER TABLE "Backup" ADD COLUMN "indicloudId" TEXT;
 
 -- RedefineTables
 PRAGMA defer_foreign_keys=ON;
 PRAGMA foreign_keys=OFF;
 CREATE TABLE "new_settings" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "title" TEXT NOT NULL DEFAULT 'Airlink',
-    "description" TEXT NOT NULL DEFAULT 'AirLink is a free and open source project by AirlinkLabs',
+    "title" TEXT NOT NULL DEFAULT 'Sodium',
+    "description" TEXT NOT NULL DEFAULT 'Sodium Panel — Powered by IndiCloud',
     "logo" TEXT NOT NULL DEFAULT '../assets/logo.png',
     "favicon" TEXT NOT NULL DEFAULT '../assets/favicon.ico',
     "theme" TEXT NOT NULL DEFAULT 'default',
@@ -36,8 +36,8 @@ CREATE TABLE "new_settings" (
     "enforceDaemonHttps" BOOLEAN NOT NULL DEFAULT false,
     "behindReverseProxy" BOOLEAN NOT NULL DEFAULT false,
     "hashApiKeys" BOOLEAN NOT NULL DEFAULT false,
-    "airlinkCloudApiKey" TEXT,
-    "airlinkCloudBackupEnabled" BOOLEAN NOT NULL DEFAULT false
+    "indicloudApiKey" TEXT,
+    "indicloudBackupEnabled" BOOLEAN NOT NULL DEFAULT false
 );
 INSERT INTO "new_settings" ("allowRegistration", "allowUserCreateServer", "allowUserDeleteServer", "bannedIps", "behindReverseProxy", "createdAt", "darkTheme", "defaultMaxCpu", "defaultMaxMemory", "defaultMaxStorage", "defaultServerLimit", "description", "enforceDaemonHttps", "favicon", "hashApiKeys", "id", "language", "lightTheme", "loginLockoutMinutes", "loginMaxAttempts", "loginWallpaper", "logo", "rateLimitEnabled", "rateLimitRpm", "registerWallpaper", "sftpPort", "theme", "title", "updatedAt", "uploadLimit", "virusTotalApiKey") SELECT "allowRegistration", "allowUserCreateServer", "allowUserDeleteServer", "bannedIps", "behindReverseProxy", "createdAt", "darkTheme", "defaultMaxCpu", "defaultMaxMemory", "defaultMaxStorage", "defaultServerLimit", "description", "enforceDaemonHttps", "favicon", "hashApiKeys", "id", "language", "lightTheme", "loginLockoutMinutes", "loginMaxAttempts", "loginWallpaper", "logo", "rateLimitEnabled", "rateLimitRpm", "registerWallpaper", "sftpPort", "theme", "title", "updatedAt", "uploadLimit", "virusTotalApiKey" FROM "settings";
 DROP TABLE "settings";

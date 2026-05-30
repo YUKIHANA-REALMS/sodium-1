@@ -7,9 +7,9 @@ import { checkForUpdates, performUpdate } from '../../handlers/updater';
 import { registerPermission } from '../../handlers/permisions';
 
 
-registerPermission('airlink.admin.overview.main');
-registerPermission('airlink.admin.overview.checkForUpdates');
-registerPermission('airlink.admin.overview.performUpdate');
+registerPermission('sodium.admin.overview.main');
+registerPermission('sodium.admin.overview.checkForUpdates');
+registerPermission('sodium.admin.overview.performUpdate');
 
 interface ErrorMessage {
   message?: string;
@@ -21,7 +21,7 @@ const adminModule: Module = {
     description: 'This file is for admin functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -30,7 +30,7 @@ const adminModule: Module = {
 
     router.get(
       '/admin/overview',
-      isAuthenticated(true, 'airlink.admin.overview.main'),
+      isAuthenticated(true, 'sodium.admin.overview.main'),
       async (req: Request, res: Response) => {
         const errorMessage: ErrorMessage = {};
 
@@ -58,7 +58,7 @@ const adminModule: Module = {
             imageCount,
             req,
             settings,
-            airlinkVersion: res.locals.airlinkVersion,
+            sodiumVersion: res.locals.sodiumVersion,
           });
         } catch (error) {
           logger.error('Error fetching user:', error);
@@ -71,7 +71,7 @@ const adminModule: Module = {
 
     router.get(
       '/admin/check-update',
-      isAuthenticated(true, 'airlink.admin.overview.checkForUpdates'),
+      isAuthenticated(true, 'sodium.admin.overview.checkForUpdates'),
       async (_req: Request, res: Response) => {
         try {
           const updateInfo = await checkForUpdates();
@@ -85,7 +85,7 @@ const adminModule: Module = {
 
     router.post(
       '/admin/perform-update',
-      isAuthenticated(true, 'airlink.admin.overview.performUpdate'),
+      isAuthenticated(true, 'sodium.admin.overview.performUpdate'),
       async (_req: Request, res: Response) => {
         try {
           const success = await performUpdate();
@@ -103,7 +103,7 @@ const adminModule: Module = {
 
     router.get(
       '/admin/menu',
-      isAuthenticated(true, 'airlink.admin.overview.main'),
+      isAuthenticated(true, 'sodium.admin.overview.main'),
       async (req: Request, res: Response) => {
         try {
           const userId = req.session?.user?.id;

@@ -1,6 +1,6 @@
-# AirLink Panel Addons
+# Sodium Panel Addons
 
-This directory contains addons for AirLink Panel. Addons can extend the functionality of the panel with custom features.
+This directory contains addons for Sodium Panel. Addons can extend the functionality of the panel with custom features.
 
 ## Creating an Addon
 

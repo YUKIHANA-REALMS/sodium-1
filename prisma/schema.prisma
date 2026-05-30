@@ -103,8 +103,8 @@ model Images {
 
 model settings {
   id          Int      @id @default(autoincrement())
-  title       String @default("Airlink")
-  description String @default("AirLink is a free and open source project by AirlinkLabs")
+  title       String @default("Sodium")
+  description String @default("Sodium Panel — Powered by IndiCloud")
   logo      String @default("../assets/logo.png")
   favicon   String @default("../assets/favicon.ico")
   theme     String @default("default")
@@ -133,8 +133,8 @@ model settings {
   enforceDaemonHttps       Boolean @default(false)
   behindReverseProxy       Boolean @default(false)
   hashApiKeys              Boolean @default(false)
-  airlinkCloudApiKey       String?
-  airlinkCloudBackupEnabled Boolean @default(false)
+  indicloudApiKey       String?
+  indicloudBackupEnabled Boolean @default(false)
 }
 
 model ServerFolder {
@@ -211,7 +211,7 @@ model Backup {
   size        BigInt?
   createdAt   DateTime @default(now())
   server      Server   @relation(fields: [serverId], references: [UUID], onDelete: Cascade)
-  airlinkCloudId String?
+  indicloudId String?
 
   @@index([serverId])
   @@index([createdAt])

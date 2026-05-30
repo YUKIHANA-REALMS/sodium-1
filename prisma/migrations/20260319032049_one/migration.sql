@@ -90,8 +90,8 @@ CREATE TABLE "Node" (
 -- CreateTable
 CREATE TABLE "settings" (
     "id" INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,
-    "title" TEXT NOT NULL DEFAULT 'Airlink',
-    "description" TEXT NOT NULL DEFAULT 'AirLink is a free and open source project by AirlinkLabs',
+    "title" TEXT NOT NULL DEFAULT 'Sodium',
+    "description" TEXT NOT NULL DEFAULT 'Sodium Panel — Powered by IndiCloud',
     "logo" TEXT NOT NULL DEFAULT '../assets/logo.png',
     "favicon" TEXT NOT NULL DEFAULT '../assets/favicon.ico',
     "theme" TEXT NOT NULL DEFAULT 'default',

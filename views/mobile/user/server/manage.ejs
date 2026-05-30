@@ -413,8 +413,8 @@ connectWebSocket();
         const stripped = plain.replace(/[\r\n]/g, '').trim();
         const isOnlyPrompt = PROMPT_RE.test(stripped) && stripped.replace(PROMPT_RE, '').trim() === '';
         PROMPT_RE.lastIndex = 0;
-        if (isOnlyPrompt) return '\r\nairlinkd~ ';
-        return plain.replace(PROMPT_RE, 'airlinkd~ ');
+        if (isOnlyPrompt) return '\r\nSodiumd~ ';
+        return plain.replace(PROMPT_RE, 'Sodiumd~ ');
     }
 
     function handleWebSocketMessage(msg) {
@@ -422,7 +422,7 @@ connectWebSocket();
             msg.data.arrayBuffer().then(buf => {
                 const text = new TextDecoder().decode(buf);
                 if (isDaemonInfraError(text)) return;
-                if (text.includes('airlinkd server appears to be down')) {
+                if (text.includes('Sodiumd server appears to be down')) {
                     socket.close();
                     wsErrorCount = 3;
                     const warn = document.getElementById('daemonOfflineWarning');
@@ -442,7 +442,7 @@ connectWebSocket();
 
         const text = typeof msg.data === 'string' ? msg.data : String(msg.data);
         if (isDaemonInfraError(text)) return;
-        if (text.includes('airlinkd server appears to be down')) {
+        if (text.includes('Sodiumd server appears to be down')) {
             socket.close();
             wsErrorCount = 3;
             const warn = document.getElementById('daemonOfflineWarning');

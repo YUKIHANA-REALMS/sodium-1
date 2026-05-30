@@ -2,9 +2,9 @@ import axios from 'axios';
 import FormData from 'form-data';
 import logger from '../../logger';
 
-const AIRLINK_CLOUD_URL = 'https://api.airlinklabs.xyz';
+const INDICLOUD_URL = 'https://api.indicloud.xyz';
 
-export class AirlinkCloudClient {
+export class IndiCloudClient {
   private apiKey: string;
 
   constructor(apiKey: string) {
@@ -16,7 +16,7 @@ export class AirlinkCloudClient {
     form.append('file', fileStream, fileName);
 
     try {
-      const response = await axios.post(`${AIRLINK_CLOUD_URL}/storage/upload`, form, {
+      const response = await axios.post(`${INDICLOUD_URL}/storage/upload`, form, {
         headers: {
           ...form.getHeaders(),
           'X-API-Key': this.apiKey,
@@ -27,14 +27,14 @@ export class AirlinkCloudClient {
 
       return response.data;
     } catch (error) {
-      logger.error('Airlink Cloud upload error:', error);
+      logger.error('IndiCloud upload error:', error);
       throw error;
     }
   }
 
   async deleteFile(fileId: string) {
     try {
-      const response = await axios.delete(`${AIRLINK_CLOUD_URL}/storage/files/${fileId}`, {
+      const response = await axios.delete(`${INDICLOUD_URL}/storage/files/${fileId}`, {
         headers: {
           'X-API-Key': this.apiKey,
         },
@@ -42,14 +42,14 @@ export class AirlinkCloudClient {
 
       return response.data;
     } catch (error) {
-      logger.error('Airlink Cloud delete error:', error);
+      logger.error('IndiCloud delete error:', error);
       throw error;
     }
   }
 
   async getDownloadStream(fileId: string) {
     try {
-      const response = await axios.get(`${AIRLINK_CLOUD_URL}/storage/download/${fileId}`, {
+      const response = await axios.get(`${INDICLOUD_URL}/storage/download/${fileId}`, {
         headers: {
           'X-API-Key': this.apiKey,
         },
@@ -58,7 +58,7 @@ export class AirlinkCloudClient {
 
       return response;
     } catch (error) {
-      logger.error('Airlink Cloud download error:', error);
+      logger.error('IndiCloud download error:', error);
       throw error;
     }
   }

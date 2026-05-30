@@ -37,7 +37,7 @@ export async function checkEulaStatus(serverId: string): Promise<CheckEulaResult
       url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/fs/file/content`,
       responseType: 'text',
       params: { id: server.UUID, path: 'eula.txt' },
-      auth: { username: 'Airlink', password: server.node.key },
+      auth: { username: 'Sodium', password: server.node.key },
     });
 
     return { accepted: (eulaResponse.data as string).includes('eula=true') };
@@ -52,7 +52,7 @@ export async function checkEulaStatus(serverId: string): Promise<CheckEulaResult
 const EXCLUDED_WORLD_FOLDERS = new Set([
   'plugins', 'config', 'cache', 'versions', 'logs', 'libraries',
   'mods', 'bin', 'crash-reports', 'screenshots', 'resourcepacks',
-  'texturepacks', 'server', 'backups', 'airlink',
+  'texturepacks', 'server', 'backups', 'sodium',
 ]);
 
 const REQUIRED_WORLD_FILES = ['uid.dat', 'level.dat'];
@@ -76,7 +76,7 @@ export const isWorld = async (folderName: string, serverInfo: ServerInfo): Promi
       method: 'GET',
       url: `${daemonSchemeSync()}://${serverInfo.nodeAddress}:${serverInfo.nodePort}/fs/list`,
       params: { id: serverInfo.serverUUID, path: folderName },
-      auth: { username: 'Airlink', password: serverInfo.nodeKey },
+      auth: { username: 'Sodium', password: serverInfo.nodeKey },
       timeout: 5000,
     });
 

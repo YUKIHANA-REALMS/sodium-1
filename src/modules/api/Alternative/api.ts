@@ -6,7 +6,7 @@ import axios from 'axios';
 import { queueer } from '../../../handlers/queueer';
 import bcrypt from 'bcryptjs';
 import { Buffer } from 'buffer';
-import { getParamAsString, getParamAsNumber } from "../../../utils/typeHelpers";
+import { getParamAsString, getParamAsNumber } from '../../../utils/typeHelpers';
 import { daemonSchemeSync } from '../../../handlers/utils/core/daemonRequest';
 
 
@@ -16,7 +16,7 @@ const coreModule: Module = {
     description: 'This file is for all core functionality.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -674,7 +674,7 @@ const coreModule: Module = {
                     requestBody,
                     {
                       auth: {
-                        username: 'Airlink',
+                        username: 'Sodium',
                         password: server.node.key,
                       },
                       headers: {

@@ -5,7 +5,7 @@ import { isAuthenticated } from '../../handlers/utils/auth/authUtil';
 import { checkNodeStatus } from '../../handlers/utils/node/nodeStatus';
 import logger from '../../handlers/logger';
 import axios from 'axios';
-import { getParamAsString, getParamAsNumber } from "../../utils/typeHelpers";
+import { getParamAsString, getParamAsNumber } from '../../utils/typeHelpers';
 import { daemonSchemeSync } from '../../handlers/utils/core/daemonRequest';
 
 
@@ -66,7 +66,7 @@ const adminModule: Module = {
     description: 'This file is for admin functionality of the Nodes.',
     version: '1.0.0',
     moduleVersion: '1.0.0',
-    author: 'AirLinkLab',
+    author: 'IndiCloud',
     license: 'MIT',
   },
 
@@ -260,7 +260,7 @@ const adminModule: Module = {
                     axios.delete(
                       `${daemonSchemeSync()}://${node.address}:${node.port}/container`,
                       {
-                        auth: { username: 'Airlink', password: node.key },
+                        auth: { username: 'Sodium', password: node.key },
                         data: { id: server.UUID },
                         timeout: 8000,
                       },
@@ -474,7 +474,7 @@ const adminModule: Module = {
             `${daemonSchemeSync()}://${node.address}:${node.port}/stats`,
             {
               auth: {
-                username: 'Airlink',
+                username: 'Sodium',
                 password: node.key,
               },
               headers: {

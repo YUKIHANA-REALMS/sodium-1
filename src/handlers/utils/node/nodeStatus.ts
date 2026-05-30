@@ -26,7 +26,7 @@ export async function checkNodeStatus(node: Node): Promise<Node> {
       method: 'get',
       url,
       auth: {
-        username: 'Airlink',
+        username: 'Sodium',
         password: node.key,
       },
       headers: {
