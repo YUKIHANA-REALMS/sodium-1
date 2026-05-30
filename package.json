@@ -16,6 +16,7 @@
     "build:css": "npx tailwindcss -i ./public/tw.css -o ./public/styles.css --watch",
     "migrate:dev": "npx prisma migrate dev",
     "migrate:deploy": "npx prisma migrate deploy && npx prisma generate",
+    "configure": "node scripts/configure.js",
     "lint": "eslint src --fix",
     "format": "prettier --write src/"
   },
