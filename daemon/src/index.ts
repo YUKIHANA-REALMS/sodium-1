@@ -1437,7 +1437,7 @@ const server = http.createServer(app);
 const wss = new WebSocketServer({ noServer: true });
 
 server.on('upgrade', (request, socket, head) => {
-  wss.handleUpgrade(request, socket, head, (ws) => {
+  wss.handleUpgrade(request, socket, head, (ws: WsSocket) => {
     wss.emit('connection', ws, request);
   });
 });
@@ -1451,7 +1451,7 @@ function wsAuth(ws: WsSocket, req: IncomingMessage): boolean {
   return password === config.key;
 }
 
-wss.on('connection', (ws, req) => {
+wss.on('connection', (ws: WsSocket, req: IncomingMessage) => {
   const url = req.url || '';
   const parts = url.split('/');
   const pathSegment = parts[1];
