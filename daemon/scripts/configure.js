@@ -20,7 +20,7 @@ const env = `remote=${panel}
 key=${key}
 port=3002
 DEBUG=false
-version=1.0.0
+version=2.0.0
 environment=production
 STATS_INTERVAL=10000
 `;

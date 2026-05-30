@@ -274,7 +274,6 @@ const adminModule: Module = {
         const userId = +ownerId;
         if (
           !name ||
-          !description ||
           !nodeId ||
           !imageId ||
           !Ports ||
@@ -416,7 +415,7 @@ const adminModule: Module = {
           const createdServer = await prisma.server.create({
             data: {
               name,
-              description,
+              description: description?.trim() || null,
               ownerId: userId,
               nodeId: parseInt(nodeId),
               imageId: parseInt(imageId),

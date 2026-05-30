@@ -44,7 +44,7 @@ If a newer version of the panel is available, a notice appears here with a link 
 
 Nodes are the machines that run game servers. Each node runs the Sodium daemon, which the panel communicates with.
 
-To create a node, go to Admin > Nodes > Create Node. You need to provide a name, the node's IP address, and the daemon port (default: 8080).
+To create a node, go to Admin > Nodes > Create Node. You need to provide a name, the node's IP address, and the daemon port (default: 3002).
 
 After creating a node, use the Configure button to get the daemon configuration details. Install and start the daemon on the node machine using those details.
 

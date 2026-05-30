@@ -392,13 +392,14 @@
         },
         body: JSON.stringify(data),
       })
-        .then(response => {
+        .then(async response => {
           if (!response.ok) {
-            throw new Error('Server creation failed');
+            const text = await response.text();
+            throw new Error(text || 'Server creation failed');
           }
-          return response;
+          return response.text();
         })
-        .then(data => {
+        .then(() => {
           loader.updateProgress(100, 'Server created successfully!');
           setTimeout(() => {
             loader.close();
