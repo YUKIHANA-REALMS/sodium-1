@@ -1159,6 +1159,7 @@ phase_daemon_deps() {
     cd /etc/sodium-daemon || die "Daemon directory missing"
 
     if [[ -f package.json ]]; then
+        "$PNPM" approve-builds --all || true
         NODE_ENV=development "$PNPM" install --no-frozen-lockfile \
             --store-dir "$PNPM_STORE" \
             --network-concurrency 16 \
