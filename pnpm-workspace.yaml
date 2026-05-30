@@ -1,0 +1,5 @@
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - "@prisma/client"
+  - "@prisma/engines"
+  - "prisma"

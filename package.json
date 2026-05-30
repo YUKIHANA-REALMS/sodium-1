@@ -77,12 +77,4 @@
     "typescript": "^5.7.3",
     "typescript-eslint": "^8.15.0"
   },
-  "pnpm": {
-    "onlyBuiltDependencies": [
-      "@parcel/watcher",
-      "@prisma/client",
-      "@prisma/engines",
-      "prisma"
-    ]
-  }
 }

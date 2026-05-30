@@ -1025,21 +1025,15 @@ phase_panel_clone() {
     id www-data &>/dev/null && chown -R www-data:www-data /var/www/panel
     chmod -R 755 /var/www/panel
 
-    # Patch package.json to pre-approve Prisma/parcel build scripts
-    if command -v python3 &>/dev/null; then
-        python3 - /var/www/panel/package.json <<'PYEOF'
-import json, sys
-f = sys.argv[1]
-with open(f) as fh:
-    d = json.load(fh)
-d.setdefault("pnpm", {})["onlyBuiltDependencies"] = [
-    "@parcel/watcher", "@prisma/client", "@prisma/engines", "prisma"
-]
-with open(f, "w") as fh:
-    json.dump(d, fh, indent=2)
-    fh.write("\n")
-PYEOF
-    fi
+    # Pre-approve build scripts (pnpm v10+ requires explicit approval)
+    # using pnpm-workspace.yaml — the deprecated package.json key is ignored
+    cat > /var/www/panel/pnpm-workspace.yaml <<'YAMLEOF'
+onlyBuiltDependencies:
+  - "@parcel/watcher"
+  - "@prisma/client"
+  - "@prisma/engines"
+  - "prisma"
+YAMLEOF
 
     if [[ ! -f /var/www/panel/.env ]]; then
         local secret; secret=$(openssl rand -hex 32)
