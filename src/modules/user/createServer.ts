@@ -311,6 +311,7 @@ const userCreateServerModule: Module = {
               await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
             } catch (err) {
               logger.error(`Error sending install request for server ${server.id}:`, err);
+              await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
             }
           }
         });

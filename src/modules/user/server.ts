@@ -364,6 +364,22 @@ const dashboardModule: Module = {
             restartEnv['SERVER_MEMORY'] = String(server.Memory);
             restartEnv['SERVER_CPU']    = String(server.Cpu);
 
+            const restartFeatures = getImageFeatures(server.image);
+            if (restartFeatures.includes('eula')) {
+              restartEnv['EULA'] = 'true';
+              try {
+                await axios({
+                  method: 'POST',
+                  url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/fs/file/content`,
+                  data: { id: server.UUID, path: 'eula.txt', content: 'eula=true' },
+                  auth: { username: 'Sodium', password: server.node.key },
+                  timeout: 5000,
+                });
+              } catch {
+                // Non-fatal
+              }
+            }
+
             if (!server.dockerImage) {
               res.status(400).json({ error: 'Docker image not found.' });
               return;
@@ -1862,12 +1878,28 @@ const dashboardModule: Module = {
                 .map((port) => port.Port)
                 .pop();
 
-              const envVariables = buildEnvVariables(server.Variables);
-              envVariables['SERVER_PORT']   = String(ports ?? '');
-              envVariables['SERVER_MEMORY'] = String(server.Memory);
-              envVariables['SERVER_CPU']    = String(server.Cpu);
+          const envVariables = buildEnvVariables(server.Variables);
+          envVariables['SERVER_PORT']   = String(ports ?? '');
+          envVariables['SERVER_MEMORY'] = String(server.Memory);
+          envVariables['SERVER_CPU']    = String(server.Cpu);
 
-              if (!server.dockerImage) {
+          const features = getImageFeatures(server.image);
+          if (features.includes('eula')) {
+            envVariables['EULA'] = 'true';
+            try {
+              await axios({
+                method: 'POST',
+                url: `${daemonSchemeSync()}://${server.node.address}:${server.node.port}/fs/file/content`,
+                data: { id: server.UUID, path: 'eula.txt', content: 'eula=true' },
+                auth: { username: 'Sodium', password: server.node.key },
+                timeout: 5000,
+              });
+            } catch {
+              // Non-fatal: container may not exist yet, eula.txt gets created on first start
+            }
+          }
+
+          if (!server.dockerImage) {
                 res.status(400).json({ error: 'Docker image not found.' });
                 return;
               }

@@ -34,13 +34,41 @@ try {
 // Install state tracking (in-memory, ephemeral)
 const installStates = new Map<string, string>();
 
+function loadInstallStates() {
+  try {
+    if (fs.existsSync(STATE_FILE)) {
+      const raw = fs.readFileSync(STATE_FILE, 'utf-8');
+      const data = JSON.parse(raw);
+      if (data.installStates && typeof data.installStates === 'object') {
+        for (const [k, v] of Object.entries(data.installStates)) {
+          installStates.set(k, v as string);
+        }
+      }
+    }
+  } catch { /* ignore corrupt state file */ }
+}
+
+function saveInstallStates() {
+  try {
+    const obj: Record<string, string> = {};
+    for (const [k, v] of installStates) {
+      obj[k] = v;
+    }
+    fs.writeFileSync(STATE_FILE, JSON.stringify({ installStates: obj }), 'utf-8');
+  } catch { /* non-fatal */ }
+}
+
 function setInstallState(uuid: string, state: string) {
   installStates.set(uuid, state);
+  saveInstallStates();
 }
 
 function getInstallState(uuid: string): string {
   return installStates.get(uuid) || 'installing';
 }
+
+// Load persisted states on startup
+loadInstallStates();
 
 // ── Container name helper ──────────────────────────────────────────────────
 
@@ -271,6 +299,10 @@ app.post('/container/installer', async (req, res) => {
     try {
       await installContainer.start();
       await installContainer.wait();
+      // Auto-accept EULA for Minecraft servers
+      try {
+        fs.writeFileSync(path.join(dir, 'eula.txt'), 'eula=true', 'utf-8');
+      } catch { /* non-fatal */ }
       setInstallState(id, 'installed');
       res.json({ success: true, state: 'installed' });
     } catch (err: any) {
@@ -344,6 +376,10 @@ app.post('/container/install', async (req, res) => {
       }
     }
 
+    // Auto-accept EULA for Minecraft servers
+    try {
+      fs.writeFileSync(path.join(dir, 'eula.txt'), 'eula=true', 'utf-8');
+    } catch { /* non-fatal */ }
     setInstallState(id, 'installed');
     res.json({ success: true, state: 'installed' });
   } catch (err) {
@@ -370,6 +406,10 @@ app.post('/container/start', async (req, res) => {
       for (const [k, v] of Object.entries(env)) {
         envArray.push(`${k}=${v}`);
       }
+    }
+    // Auto-accept EULA for Minecraft servers
+    if (!envArray.some(e => e.startsWith('EULA='))) {
+      envArray.push('EULA=true');
     }
 
     // Memory limit: convert MB to bytes

@@ -56,16 +56,21 @@ export async function checkForServerInstallation(
 
     const state = response.data.state as string;
     const isInstalled = state === 'installed';
+    const isFailed = state === 'failed';
 
     cache.set(serverId, { data: state, timestamp: now });
 
     // Keep the DB in sync so next page load hits the fast path above.
-    await prisma.server.update({
-      where: { UUID: serverId },
-      data: { Installing: !isInstalled },
-    });
+    // Only set Installing: false when install finished (success or fail).
+    // If the daemon still reports 'installing', keep the current DB value.
+    if (isInstalled || isFailed) {
+      await prisma.server.update({
+        where: { UUID: serverId },
+        data: { Installing: false },
+      });
+    }
 
-    return { installed: isInstalled, state, failed: state === 'failed' };
+    return { installed: isInstalled, state, failed: isFailed };
   } catch (error: any) {
     if (error.response?.status === 404) {
       return { installed: false, state: 'not_found' };

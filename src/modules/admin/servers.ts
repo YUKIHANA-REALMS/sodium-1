@@ -596,6 +596,7 @@ const adminModule: Module = {
                   await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
                 } catch (error: unknown) {
                   logger.error(`Error sending install request for server ID ${server.id}:`, error);
+                  await prisma.server.update({ where: { id: server.id }, data: { Queued: false, Installing: false } });
                 }
               } else {
                 logger.warn(`No scripts found for server ID ${server.id}, marking as installed`);
